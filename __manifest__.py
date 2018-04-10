@@ -11,7 +11,25 @@
     'description': 'Hospital Management System',
     'depends': ['base', 'mail'],
     'data': [
-        
+        'menu/menu.xml',
+        'views/employee/hr_employee.xml',
+        'views/employee/hr_attachment.xml',
+        'views/employee/hr_category.xml',
+        'views/employee/hr_contact.xml',
+        'views/employee/hr_department.xml',
+        'views/employee/hr_designation.xml',
+        'views/employee/hr_experience.xml',
+        'views/employee/hr_leave.xml',
+        'views/employee/hr_qualification.xml',
+        'views/time_management/shift.xml',
+        'views/time_management/week_schedule.xml',
+        'views/time_management/attendance.xml',
+        'views/time_management/monthly_attendance.xml',
+        'views/time_management/time_sheet.xml',
+        'views/time_management/week_off.xml',
+        'views/time_management/shift_change.xml',
+        'views/time_management/time_configuration.xml',
+        'menu/employee.xml',
     ],
     'demo': [
 

@@ -8,7 +8,7 @@ import json
 
 # Designation
 
-class HREmployeeDesignation(surya.Sarpam):
-    _name = "hr.employee.designation"
+class HRDesignation(surya.Sarpam):
+    _name = "hr.designation"
 
     name = fields.Char(string="Designation", required=True)

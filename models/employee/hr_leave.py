@@ -10,7 +10,7 @@ import json
 class HRLeave(surya.Sarpam):
     _name = "hr.leave"
 
-    month_id = fields.Many2one(comodel_name="month.month", string="Month")
+    month_id = fields.Many2one(comodel_name="period.period", string="Month")
     leave_level_id = fields.Many2one(comodel_name="leave.level", string="Leave Level", required=True)
     leave_detail = fields.One2many(comodel_name="hr.leave.detail",
                                    inverse_name="hr_leave_id",
@@ -24,9 +24,9 @@ class HRLeave(surya.Sarpam):
 
     employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee")
 
-    _sql_constraints = [('unique_leave_month',
+    _sql_constraints = [('unique_leave_period',
                          'unique (month_id, employee_id)',
-                         'Error! Leave month should not be repeated')]
+                         'Error! Leave period should not be repeated')]
 
 
 class HRLeaveDetail(surya.Sarpam):

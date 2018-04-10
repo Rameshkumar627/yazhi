@@ -6,8 +6,8 @@ from .. import surya
 import json
 
 
-# Product Group
-PROGRESS_INFO = [("draft", "Draft"), ("done", "Done")]
+# Product UOM
+PROGRESS_INFO = [("draft", "Draft"), ("confirmed", "Confirmed")]
 
 
 class UOM(surya.Sarpam):

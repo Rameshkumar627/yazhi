@@ -11,7 +11,7 @@ class Period(surya.Sarpam):
     _name = "period.period"
 
     name = fields.Char(string="Name", readonly=True)
-    year = fields.Char(string="Year", readonly=True)
+    year_id = fields.Many2one(comodel_name="year.year", string="Year", readonly=True)
     from_date = fields.Date(string="From Date", required=True)
     till_date = fields.Date(string="Till Date", required=True)
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
@@ -37,7 +37,12 @@ class Period(surya.Sarpam):
             raise exceptions.ValidationError("Error! Period must be within a month")
 
         vals["name"] = "{0} To {1}".format(from_date.strftime("%m-%Y"), till_date.strftime("%m-%Y"))
-        vals["year"] = "{0}".format(from_date.strftime("%m-%Y"))
+
+        year = self.env["year.year"].search([("name", "=", from_date.strftime("%m-%Y"))])
+        if year:
+            vals["year_id"] = year.id
+        else:
+            raise exceptions.ValidationError("Error! Please create year before period creation")
 
         return vals
 

@@ -21,16 +21,16 @@ class HRPersonnelInfo(surya.Sarpam):
     marital_status = fields.Selection(selection=MARITAL_STATUS, string="Marital Status")
     gender = fields.Selection(selection=GENDER, string="Gender")
     caste = fields.Char(string="Caste")
-    religion = fields.Many2one(comodel_name="res.religion", string="Religion")
+    religion_id = fields.Many2one(comodel_name="res.religion", string="Religion")
     physically_challenged = fields.Boolean(string="Physically Challenged")
-    nationality = fields.Many2one(comodel_name="res.country")
-    mother_toungue = fields.Many2one(comodel_name="res.language", string="Mother Toungue")
-    language_known = fields.Many2many(comodel_name="res.language", string="Language Known")
+    nationality_id = fields.Many2one(comodel_name="res.country")
+    mother_toungue_id = fields.Many2one(comodel_name="res.language", string="Mother Toungue")
+    language_known_ids = fields.Many2many(comodel_name="res.language", string="Language Known")
     personnel_mobile = fields.Char(string="Personnel Mobile")
     personnel_email = fields.Char(string="Personnel Email")
     contact_address = fields.Char(string="Contact Address")
     is_contact_differ_permanent = fields.Boolean(string="Is Contact Address From Permanent Address")
     permanent_address = fields.Char(string="Permanent Address")
-    family_members = fields.One2many(comodel_name="hr.contact",
-                                     inverse_name="employee_id",
-                                     string="Family Members")
+    family_member_ids = fields.One2many(comodel_name="hr.contact",
+                                        inverse_name="employee_id",
+                                        string="Family Members")

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_hr_leave_tree" model="ir.ui.view">
+        <field name="name">hr.leave.tree</field>
+        <field name="model">hr.leave</field>
+        <field name="arch" type="xml">
+            <tree string="Leave">
+                <field name="employee_id"/>
+                <field name="month_id"/>
+                <field name="leave_level_id"/>
+                <field name="total_days"/>
+                <field name="total_present"/>
+                <field name="total_absent"/>
+                <field name="total_working_days"/>
+                <field name="total_holidays"/>
+                <field name="total_lop"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_hr_leave_form" model="ir.ui.view">
+        <field name="name">hr.leave.form</field>
+        <field name="model">hr.leave</field>
+        <field name="arch" type="xml">
+            <form string="Leave">
+                <sheet>
+                    <group>
+                        <field name="employee_id"/>
+                        <field name="month_id"/>
+                        <field name="leave_level_id"/>
+                        <field name="leave_detail"/>
+                        <field name="total_days"/>
+                        <field name="total_present"/>
+                        <field name="total_absent"/>
+                        <field name="total_working_days"/>
+                        <field name="total_holidays"/>
+                        <field name="total_lop"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hr_leave" model="ir.actions.act_window">
+        <field name="name">Leave</field>
+        <field name="res_model">hr.leave</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

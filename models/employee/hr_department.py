@@ -12,5 +12,5 @@ class HRDepartment(surya.Sarpam):
     _name = "hr.department"
 
     name = fields.Char(string="Department", required=True)
-    head = fields.Many2many(comodel_name="hr.employee", string="Department Head")
-    members = fields.Many2many(comodel_name="hr.employee", string="Department Members")
+    head_id = fields.Many2one(comodel_name="hr.employee", string="Department Head")
+    member_ids = fields.Many2many(comodel_name="hr.employee", string="Department Members")

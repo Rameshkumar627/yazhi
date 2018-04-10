@@ -1,0 +1,19 @@
+# -*- coding: utf-8 -*-
+
+from odoo import fields, api, exceptions, _
+from datetime import datetime
+from .. import surya
+import json
+
+
+# Product Group
+PROGRESS_INFO = [("draft", "Draft"), ("confirmed", "Confirmed")]
+
+
+class Tax(surya.Sarpam):
+    _name = "tax.tax"
+    _rec_name = "code"
+
+    name = fields.Char(string="Name", required=True)
+    code = fields.Char(string="Code", required=True)
+    percentage = fields.Float(string="Percentage", required=True)

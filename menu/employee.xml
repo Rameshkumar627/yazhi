@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_hr_employee"
+              name="Employee"
+              parent="menu_employee"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hr_employee"
+              name="Employee"
+              action="action_hr_employee"
+              parent="menu_hr_employee"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hr_attachment"
+              name="Attachment"
+              action="action_hr_attachment"
+              parent="menu_hr_employee"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_hr_category"
+              name="Category"
+              action="action_hr_category"
+              parent="menu_hr_employee"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hr_contact"
+              name="Contact"
+              action="action_hr_contact"
+              parent="menu_hr_employee"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_hr_department"
+              name="Department"
+              action="action_hr_department"
+              parent="menu_hr_employee"
+              sequence="50"/>
+
+    <menuitem id="sub_menu_hr_designation"
+              name="Designation"
+              action="action_hr_designation"
+              parent="menu_hr_employee"
+              sequence="60"/>
+
+    <menuitem id="sub_menu_hr_experience"
+              name="Experience"
+              action="action_hr_experience"
+              parent="menu_hr_employee"
+              sequence="70"/>
+
+    <menuitem id="sub_menu_hr_leave"
+              name="Leave"
+              action="action_hr_leave"
+              parent="menu_hr_employee"
+              sequence="80"/>
+
+    <menuitem id="sub_menu_hr_qualification"
+              name="Qualification"
+              action="action_hr_qualification"
+              parent="menu_hr_employee"
+              sequence="90"/>
+
+    <!--Time Management-->
+    <menuitem id="menu_time_management"
+              name="Time Management"
+              parent="menu_employee"
+              sequence="20"/>
+
+    <menuitem id="menu_time_shift"
+              name="Shift"
+              action="action_time_shift"
+              parent="menu_time_management"
+              sequence="10"/>
+
+    <menuitem id="menu_week_schedule"
+              name="Week Schedule"
+              action="action_week_schedule"
+              parent="menu_time_management"
+              sequence="20"/>
+
+    <menuitem id="menu_time_attendance"
+              name="Attendance"
+              action="action_time_attendance"
+              parent="menu_time_management"
+              sequence="30"/>
+
+    <menuitem id="menu_month_attendance"
+              name="Month Attendance"
+              action="action_month_attendance"
+              parent="menu_time_management"
+              sequence="40"/>
+
+    <menuitem id="menu_time_week_off"
+              name="Week Off"
+              action="action_time_week_off"
+              parent="menu_time_management"
+              sequence="50"/>
+
+    <menuitem id="menu_shift_change"
+              name="Shift Change"
+              action="action_shift_change"
+              parent="menu_time_management"
+              sequence="60"/>
+
+    <menuitem id="menu_time_configuration"
+              name="Time Configuration"
+              action="action_time_configuration"
+              parent="menu_time_management"
+              sequence="70"/>
+
+    <menuitem id="menu_time_sheet"
+              name="Time Sheet"
+              action="action_time_sheet"
+              parent="menu_time_management"
+              sequence="80"/>
+
+</odoo>

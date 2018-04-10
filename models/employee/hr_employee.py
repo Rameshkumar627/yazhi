@@ -20,29 +20,29 @@ class HrEmployee(surya.Sarpam):
     name = fields.Char(string="Name", required=True)
     employee_uid = fields.Char(string="Employee ID")
     image = fields.Binary(string="Image")
+    small_image = fields.Binary(string="Image")
+    very_small_image = fields.Binary(string="Image")
     progress = fields.Selection(selection=PROGRESS_INFO, string='Progress', default='draft')
     work_email = fields.Char(string="Work Email")
     work_mobile = fields.Char(string="Work Mobile", required=True)
     doj = fields.Date(string="Date of Joining", required=False)
     date_of_relieving = fields.Date(string="Date of Relieving")
     department_id = fields.Many2one(comodel_name="hr.department", string="Department")
-    designation = fields.Many2one(comodel_name="hr.employee.designation", string="Designation")
-    reporting_to = fields.Many2one(comodel_name="hr.employee", string="Reporting To")
-    employee_category = fields.Many2one(comodel_name="hr.employee.category", string="Employee Category")
-    qualification = fields.One2many(comodel_name="hr.qualification",
-                                    inverse_name="employee_id",
-                                    string="Qualification")
-    experience = fields.One2many(comodel_name="hr.experience",
-                                 inverse_name="employee_id",
-                                 string="Experience")
-    # attachment = fields.One2many(comodel_name="hr.attachment",
-    #                              inverse_name="employee_id",
-    #                              string="Attachment")
-
-    attachment = fields.Many2many(comodel_name="ir.attachment", string="Attachment")
-    leave = fields.One2many(comodel_name="hr.leave",
-                            inverse_name="employee_id",
-                            string="Leave")
+    designation_id = fields.Many2one(comodel_name="hr.designation", string="Designation")
+    reporting_to_id = fields.Many2one(comodel_name="hr.employee", string="Reporting To")
+    employee_category_id = fields.Many2one(comodel_name="hr.category", string="Employee Category")
+    qualification_ids = fields.One2many(comodel_name="hr.qualification",
+                                        inverse_name="employee_id",
+                                        string="Qualification")
+    experience_ids = fields.One2many(comodel_name="hr.experience",
+                                     inverse_name="employee_id",
+                                     string="Experience")
+    attachment_ids = fields.One2many(comodel_name="hr.attachment",
+                                     inverse_name="employee_id",
+                                     string="Attachment")
+    leave_ids = fields.One2many(comodel_name="hr.leave",
+                                inverse_name="employee_id",
+                                string="Leave")
     leave_level_id = fields.Many2one(comodel_name="leave.level", string="Leave Level")
     user_id = fields.Many2one(comodel_name="res.users", string="User")
 

@@ -6,8 +6,8 @@ from .. import surya
 import json
 
 
-# Product Group
-PROGRESS_INFO = [("draft", "Draft"), ("done", "Done")]
+# Product Sub Group
+PROGRESS_INFO = [("draft", "Draft"), ("confirmed", "Confirmed")]
 
 
 class ProductSubGroup(surya.Sarpam):
@@ -15,5 +15,5 @@ class ProductSubGroup(surya.Sarpam):
 
     name = fields.Char(string="Name", required=True)
     code = fields.Char(string="Code", required=True)
-    group_id = fields.Many2one(comodel_name="product.group", string="Product Group", required=True)
+    group_id = fields.Many2one(comodel_name="product.group", string="Group", required=True)
     progress = fields.Selection(selection=PROGRESS_INFO, sring="Progress")

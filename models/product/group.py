@@ -7,7 +7,7 @@ import json
 
 
 # Product Group
-PROGRESS_INFO = [("draft", "Draft"), ("done", "Done")]
+PROGRESS_INFO = [("draft", "Draft"), ("confirmed", "Confirmed")]
 
 
 class ProductGroup(surya.Sarpam):
