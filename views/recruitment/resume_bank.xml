@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_resume_bank_tree" model="ir.ui.view">
+        <field name="name">resume.bank.tree</field>
+        <field name="model">resume.bank</field>
+        <field name="arch" type="xml">
+            <tree string="Resume Bank">
+                <field name="name"/>
+                <field name="candidate_uid"/>
+                <field name="aadhar_card"/>
+                <field name="personnel_email"/>
+                <field name="personnel_mobile"/>
+                <field name="position_id"/>
+                <field name="gender"/>
+                <field name="marital_status"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_resume_bank_form" model="ir.ui.view">
+        <field name="name">resume.bank.form</field>
+        <field name="model">resume.bank</field>
+        <field name="arch" type="xml">
+            <form string="Resume Bank">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="aadhar_card"/>
+                        <field name="image"/>
+                        <field name="small_image"/>
+                        <field name="very_small_image"/>
+                        <field name="position_id"/>
+                        <field name="marital_status"/>
+                        <field name="gender"/>
+                        <field name="age"/>
+                    </group>
+                    <notebook>
+                        <page string="Contact Information">
+                            <group>
+                                <field name="personnel_mobile"/>
+                                <field name="personnel_email"/>
+                                <field name="contact_address"/>
+                            </group>
+                        </page>
+                        <page string="Qualification">
+                            <field name="qualification_ids"/>
+                        </page>
+                        <page string="Experience">
+                            <field name="experience_ids"/>
+                        </page>
+                        <page string="Attachment">
+                            <field name="attachment_ids"/>
+                        </page>
+                        <page string="Personnel Information">
+                            <group>
+                                <field name="blood_group"/>
+                                <field name="caste"/>
+                                <field name="religion_id"/>
+                                <field name="physically_challenged"/>
+                                <field name="nationality_id"/>
+                                <field name="mother_toungue_id"/>
+                                <field name="language_known_ids" widget="many2many_tags"/>
+                                <field name="permanent_address"/>
+                            </group>
+                            <notebook>
+                                <page string="Family Members">
+                                    <field name="family_member_ids"/>
+                                </page>
+                            </notebook>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_resume_bank" model="ir.actions.act_window">
+        <field name="name">Resume Bank</field>
+        <field name="res_model">resume.bank</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">kanban,tree,form</field>
+    </record>
+
+</odoo>

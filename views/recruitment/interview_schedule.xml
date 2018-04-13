@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_interview_schedule_tree" model="ir.ui.view">
+        <field name="name">interview.schedule.tree</field>
+        <field name="model">interview.schedule</field>
+        <field name="arch" type="xml">
+            <tree string="Interview Schedule">
+                <field name="date"/>
+                <field name="name"/>
+                <field name="position_id"/>
+                <field name="progress"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_interview_schedule_form" model="ir.ui.view">
+        <field name="name">interview.schedule.form</field>
+        <field name="model">interview.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Interview Schedule">
+                <header>
+                    <field name="progress" widget="statusbar" statusbar_visible="draft,process_start,cancelled,completed"/>
+                    <button name="trigger_cancelled" string="Cancelled" type="object"/>
+                    <button name="trigger_start_process" string="Start Process" type="object"/>
+                    <button name="trigger_completed" string="Completed" type="object"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="date"/>
+                        <field name="name"/>
+                        <field name="position_id"/>
+                        <field name="interview_id" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Interview Details" attrs="{'invisible': [('progress','=','draft')]}">
+                            <field name="interview_detail">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="name"/>
+                                    <field name="position_id" invisible="1"/>
+                                    <field name="interview_id" invisible="1"/>
+                                </tree>
+                                <form>
+                                    <header>
+                                        <field name="progress" widget="statusbar"  statusbar_visible="draft,scheduled,cancelled,completed"/>
+                                    </header>
+                                    <group>
+                                        <field name="date"/>
+                                        <field name="name"/>
+                                        <field name="position_id" invisible="1"/>
+                                        <field name="interview_id" invisible="1"/>
+                                    </group>
+                                    <notebook>
+                                        <page string="Scheduled Details">
+                                            <field name="scheduled_detail">
+                                                <tree>
+                                                    <field name="employee_id"/>
+                                                    <field name="scheduled_id"/>
+                                                    <field name="status"/>
+                                                    <field name="progress"/>
+                                                </tree>
+                                            </field>
+                                        </page>
+                                    </notebook>
+                                </form>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_vacancy_position_form" model="ir.ui.view">
+        <field name="name">interview.schedule.form</field>
+        <field name="model">interview.schedule</field>
+        <field name="arch" type="xml">
+            <form string="Vacancy Position">
+                <header>
+                    <field name="progress" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="date"/>
+                        <field name="name"/>
+                        <field name="position_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action Interview Schedule-->
+    <record id="action_interview_schedule" model="ir.actions.act_window">
+        <field name="name">Interview Schedule</field>
+        <field name="res_model">interview.schedule</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- Action Vacancy Position-->
+    <record id="action_vacancy_position" model="ir.actions.act_window">
+        <field name="name">Vacancy Position</field>
+        <field name="res_model">interview.schedule</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="view_vacancy_position_form"/>
+    </record>
+
+
+</odoo>

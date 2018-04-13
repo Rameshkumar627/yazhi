@@ -114,4 +114,35 @@
               parent="menu_time_management"
               sequence="80"/>
 
+     <!--Recruitment-->
+    <menuitem id="menu_recruitment"
+              name="Recruitment"
+              parent="menu_employee"
+              sequence="30"/>
+
+    <menuitem id="menu_resume_bank"
+              name="Resume Bank"
+              action="action_resume_bank"
+              parent="menu_recruitment"
+              sequence="10"/>
+
+    <menuitem id="menu_interview_schedule"
+              name="Interview Schedule"
+              action="action_interview_schedule"
+              parent="menu_recruitment"
+              sequence="30"/>
+
+    <menuitem id="menu_vacancy_position"
+              name="Vacancy Position"
+              action="action_vacancy_position"
+              parent="menu_recruitment"
+              sequence="40"/>
+
+    <menuitem id="menu_appointment_order"
+              name="Appointment Order"
+              action="action_appointment_order"
+              parent="menu_recruitment"
+              sequence="50"/>
+
+
 </odoo>

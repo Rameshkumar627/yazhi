@@ -5,3 +5,4 @@ from . import ss_access_rights
 from . import global_config
 from . import employee
 from . import time_management
+from . import recruitment

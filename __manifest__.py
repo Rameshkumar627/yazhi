@@ -29,6 +29,9 @@
         'views/time_management/week_off.xml',
         'views/time_management/shift_change.xml',
         'views/time_management/time_configuration.xml',
+        'views/recruitment/resume_bank.xml',
+        'views/recruitment/interview_schedule.xml',
+        'views/recruitment/appointment_order.xml',
         'menu/employee.xml',
     ],
     'demo': [
