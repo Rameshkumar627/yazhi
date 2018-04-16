@@ -1,0 +1,37 @@
+# Date     : 3 Chitrai vilambi 2018
+# Author   : Ramesh Kumar S
+# Place    : Chennai
+# Duration : 12 Hrs
+
+
+Recruitment :
+
+1. Resume Bank
+2. Interview Schedules
+3. Vacancy Position
+4. Appointment Order
+
+
+
+Resume Bank:
+	Collection of resumes for future use.
+
+
+Vacancy Position:
+	Vacancy Position includes 
+		1. Roles and Responsibility
+		2. Experience
+		3. Qualification
+		4. Prefernce
+
+
+Interview Schedules:
+	1. Interview ID
+	2. Interview Schedule and status
+
+
+Appointment Order:
+	Appointment order generation	
+
+		
+	
