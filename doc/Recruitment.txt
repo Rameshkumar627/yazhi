@@ -22,12 +22,11 @@ Vacancy Position:
 		1. Roles and Responsibility
 		2. Experience
 		3. Qualification
-		4. Prefernce
+		4. Preference
 
 
 Interview Schedules:
-	1. Interview ID
-	2. Interview Schedule and status
+	Interview Schedule and status
 
 
 Appointment Order:

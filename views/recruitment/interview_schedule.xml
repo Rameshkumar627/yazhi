@@ -22,7 +22,7 @@
         <field name="arch" type="xml">
             <form string="Interview Schedule">
                 <header>
-                    <field name="progress" widget="statusbar" statusbar_visible="draft,process_start,cancelled,completed"/>
+                    <field name="progress" widget="statusbar"/>
                     <button name="trigger_cancelled" string="Cancelled" type="object"/>
                     <button name="trigger_start_process" string="Start Process" type="object"/>
                     <button name="trigger_completed" string="Completed" type="object"/>
@@ -32,40 +32,16 @@
                         <field name="date"/>
                         <field name="name"/>
                         <field name="position_id"/>
-                        <field name="interview_id" invisible="1"/>
                     </group>
                     <notebook>
-                        <page string="Interview Details" attrs="{'invisible': [('progress','=','draft')]}">
-                            <field name="interview_detail">
+                        <page string="Scheduled Details">
+                            <field name="scheduled_detail">
                                 <tree>
-                                    <field name="date"/>
-                                    <field name="name"/>
-                                    <field name="position_id" invisible="1"/>
-                                    <field name="interview_id" invisible="1"/>
+                                    <field name="employee_id"/>
+                                    <field name="scheduled_id"/>
+                                    <field name="status"/>
+                                    <field name="progress"/>
                                 </tree>
-                                <form>
-                                    <header>
-                                        <field name="progress" widget="statusbar"  statusbar_visible="draft,scheduled,cancelled,completed"/>
-                                    </header>
-                                    <group>
-                                        <field name="date"/>
-                                        <field name="name"/>
-                                        <field name="position_id" invisible="1"/>
-                                        <field name="interview_id" invisible="1"/>
-                                    </group>
-                                    <notebook>
-                                        <page string="Scheduled Details">
-                                            <field name="scheduled_detail">
-                                                <tree>
-                                                    <field name="employee_id"/>
-                                                    <field name="scheduled_id"/>
-                                                    <field name="status"/>
-                                                    <field name="progress"/>
-                                                </tree>
-                                            </field>
-                                        </page>
-                                    </notebook>
-                                </form>
                             </field>
                         </page>
                     </notebook>

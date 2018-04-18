@@ -32,6 +32,7 @@
         'views/recruitment/resume_bank.xml',
         'views/recruitment/interview_schedule.xml',
         'views/recruitment/appointment_order.xml',
+        'views/recruitment/vacancy_position.xml',
         'menu/employee.xml',
     ],
     'demo': [
