@@ -25,28 +25,24 @@ class VacancyPosition(surya.Sarpam):
     preference = fields.Html(string="Preference")
     qualification = fields.Html(string="Qualification")
     comment = fields.Text(string="Comment")
-    opened_by = fields.Many2one(comodel_name="hr.employee", string="Opended By")
-    opened_date = fields.Datetime(string="Opened Date")
-    closed_by = fields.Many2one(comodel_name="hr.employee", string="Closed By")
-    closed_date = fields.Datetime(string="Closed Date")
+    writter = fields.Many2one(comodel_name="res.user", string="User", track_visibility='always')
 
     @api.multi
     def trigger_open(self):
-        user_id = self.env.user.id
-        employee_id = self.env["hr.employee"].search([("user_id", "=", user_id)])
-        data = {"opened_by": user_id.id,
-                "opened_date": datetime.now().strftime("%Y-%m-%d"),
+        data = {"writter": self.env.user.id,
                 "progress": "opened"}
+
+        self.write(data)
 
     @api.multi
     def trigger_close(self):
-        user_id = self.env.user.id
-        employee_id = self.env["hr.employee"].search([("user_id", "=", user_id)])
-        data = {"closed_by": user_id.id,
-                "closed_date": datetime.now().strftime("%Y-%m-%d"),
+        data = {"writter": self.env.user.id,
                 "progress": "closed"}
+
+        self.write(data)
 
     def default_vals_creation(self, vals):
         if not "date" in vals:
             vals["date"] = datetime.now().strftime("%Y-%m-%d")
+
         return vals

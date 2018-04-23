@@ -14,9 +14,11 @@ GENDER_INFO = [('single', 'Single'), ('married', 'Married'), ('divorced', 'Divor
 class AppointmentOrder(surya.Sarpam):
     _name = "appointment.order"
     _inherit = "mail.thread"
+    _rec_name = "sequence"
 
     # Resume Details
     resume_id = fields.Many2one(comodel_name="resume.bank", string="Resume", required=True)
+    sequence = fields.Char(string="Sequence", readonly=True)
 
     date = fields.Date(string="Date", required=True)
     image = fields.Binary(string="Image", related="resume_id.image")
@@ -40,16 +42,12 @@ class AppointmentOrder(surya.Sarpam):
 
     attachment_ids = fields.Many2many(comodel_name="ir.attachment", string="Attachment")
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft", track_visibility='always')
-    confirmed_by = fields.Many2one(comodel_name="hr.employee", string="Employee")
-    confirmed_on = fields.Datetime(string="Confirmed On")
+    writter = fields.Many2one(comodel_name="res.user", string="User", track_visibility='always')
 
     @api.multi
     def trigger_confirmed(self):
-        user_id = self.env.user.id
-        employee_id = self.env["hr.employee"].search([("user_id", "=", user_id.id)])
-
         data = {"progress": "confirmed",
-                "confirmed_by": employee_id.id}
+                "writter": self.env.user.id}
 
         self.write(data)
 
@@ -67,5 +65,11 @@ class AppointmentOrder(surya.Sarpam):
             'res_id': self.resume_id.id,
             'context': self.env.context
         }
+
+    def default_vals_creation(self, vals):
+        vals["sequence"] = self.env['ir.sequence'].sudo().next_by_code(self._name)
+        return vals
+
+
 
 
