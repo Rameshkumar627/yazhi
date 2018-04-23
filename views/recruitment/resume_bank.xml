@@ -102,7 +102,7 @@
         <field name="name">Resume Bank</field>
         <field name="res_model">resume.bank</field>
         <field name="view_type">form</field>
-        <field name="view_mode">kanban,tree,form</field>
+        <field name="view_mode">tree,form</field>
     </record>
 
 </odoo>
