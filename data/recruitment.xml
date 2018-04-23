@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="resume_bank_candidate_sequence" model="ir.sequence">
+        <field name="name">Resume Bank Candidate</field>
+        <field name="code">resume.bank</field>
+        <field name="prefix">RB/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+</odoo>

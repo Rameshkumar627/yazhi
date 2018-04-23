@@ -16,7 +16,7 @@ class ResumeBank(surya.Sarpam):
 
     name = fields.Char(string="Name", required=True)
     date = fields.Date(string="Date")
-    candidate_uid = fields.Char(string="Candidate ID")
+    candidate_uid = fields.Char(string="Candidate ID", readonly=True)
     aadhar_card = fields.Char(string="Aadhar Card")
     image = fields.Binary(string="Image")
     small_image = fields.Binary(string="Image")
@@ -51,7 +51,12 @@ class ResumeBank(surya.Sarpam):
                                      inverse_name="resume_id",
                                      string="Experience")
 
-    attachment_ids = fields.Many2many(comodel_name="ir.attachment", string="Resume")
+    attachment_ids = fields.Many2many(comodel_name="ir.attachment", string="Others")
 
     # Resume
     resume = fields.Binary(string="Resume")
+
+    def default_vals_creation(self, vals):
+        vals["date"] = datetime.now().strftime("%Y-%m-%d")
+        vals["candidate_uid"] = self.env['ir.sequence'].sudo().next_by_code(self._name)
+        return vals

@@ -11,6 +11,7 @@
     'description': 'Hospital Management System',
     'depends': ['base', 'mail'],
     'data': [
+        'data/recruitment.xml',
         'menu/menu.xml',
         'views/employee/hr_employee.xml',
         'views/employee/hr_attachment.xml',

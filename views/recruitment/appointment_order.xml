@@ -9,8 +9,9 @@
             <tree string="Appointment Order">
                 <field name="date"/>
                 <field name="name"/>
-                <field name="position_id"/>
                 <field name="candidate_uid"/>
+                <field name="position_id"/>
+                <field name="department_id"/>
                 <field name="progress"/>
             </tree>
         </field>
@@ -30,101 +31,49 @@
                 <sheet>
                     <field name="id" invisible="1"/>
                     <separator string="Appointment Order" style="text-align:center;"/>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="view_resume_bank" icon="fa-folder-open" class="oe_stat_button" string="Resume" type="object"/>
+                    </div>
                     <field name="image" widget="image" class="oe_avatar" options="{'preview_image': 'image_medium'}"/>
                     <div class="oe_title">
                         <label for="name" class="oe_edit_only"/>
                         <h2>
-                            <field name="name" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
+                            <field name="resume_id" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
                         </h2>
                         <label for="candidate_uid" class="oe_edit_only" string="Candidate ID"/>
                         <h3>
-                            <field name="candidate_uid" on_change="1" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
+                            <field name="candidate_uid"/>
                         </h3>
                     </div>
                     <group col="4">
                         <field name="date" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
                         <field name="position_id" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
                         <field name="department_id" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                        <field name="small_image" invisible="1" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                        <field name="very_small_image" invisible="1" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
                     </group>
                     <notebook>
-                        <!--Appointment Order-->
                         <page string="Appointment Order">
                             <field name="order_preview"/>
                         </page>
 
-                        <!-- Detail Information-->
-                        <page string="Detailed Information">
-                            <notebook>
+                        <page string="Salary Details">
+                            <group>
+                                <field name="basic" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
+                                <field name="salary_structure" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
+                            </group>
+                        </page>
 
-                                <page string="Qualification">
-                                    <field name="qualification_ids" attrs="{'readonly': [('progress', '=', 'confirmed')]}">
-                                        <tree string="Qualification" editable="bottom">
-                                            <field name="name"/>
-                                            <field name="institution"/>
-                                            <field name="enrollment_year"/>
-                                            <field name="completed_year"/>
-                                            <field name="result"/>
-                                            <field name="appointment_id" invisible="1"/>
-                                        </tree>
-                                    </field>
-                                </page>
-
-                                <page string="Experience">
-                                    <field name="experience_ids" attrs="{'readonly': [('progress', '=', 'confirmed')]}">
-                                        <tree string="Experience" editable="bottom">
-                                            <field name="name"/>
-                                            <field name="position"/>
-                                            <field name="total_years"/>
-                                            <field name="relieving_reason"/>
-                                            <field name="appointment_id" invisible="1"/>
-                                        </tree>
-                                    </field>
-                                </page>
-
-                                <page string="Attachments">
-                                    <group>
-                                        <field name="attachment_ids"
-                                               widget="many2many_binary"
-                                               domain="[('res_id', '=', id), ('res_model', '=', 'appointment.order')]"
-                                               attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                    </group>
-                                </page>
-
-                                <page string="Template">
-                                    <field name="template"/>
-                                </page>
-
-                                <page string="Contact details">
-                                    <group col="4">
-                                        <field name="email" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                        <field name="mobile" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                        <field name="door_no" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                        <field name="street" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                        <field name="locality" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                        <field name="city" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                        <field name="state_id" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                        <field name="country_id" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                        <field name="zip_code" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                        <field name="aadhar_card" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                    </group>
-                                </page>
-
-                                <page string="Personal Details">
-                                    <group col="4">
-                                        <field name="dob" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                        <field name="age" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                        <field name="marital_status" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                        <field name="gender" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                        <field name="order" attrs="{'readonly': [('progress', '=', 'confirmed')]}"/>
-                                    </group>
-                                </page>
-
-                            </notebook>
+                        <page string="Attachment">
+                            <field name="attachment_ids"
+                                   widget="many2many_binary"
+                                   attrs="{'readonly': [('progress', '=', 'confirmed')]}"
+                                   domain="[('res_id', '=', id), ('res_model', '=', 'resume.bank')]"/>
                         </page>
                     </notebook>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>
