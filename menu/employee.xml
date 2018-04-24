@@ -108,6 +108,12 @@
               parent="menu_time_management"
               sequence="80"/>
 
+    <menuitem id="menu_time_sheet_application"
+              name="Time Sheet Application"
+              action="action_time_sheet_application"
+              parent="menu_time_management"
+              sequence="90"/>
+
      <!--Recruitment-->
     <menuitem id="menu_recruitment"
               name="Recruitment"

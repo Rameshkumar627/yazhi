@@ -24,7 +24,7 @@ class WeekSchedule(surya.Sarpam):
     off_detail = fields.One2many(comodel_name="week.off.detail",
                                  inverse_name="schedule_id",
                                  string="Week-Off Detail")
-    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
+    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft", track_visibility='always')
 
     def check_date(self):
         """ From Date < Till Date """

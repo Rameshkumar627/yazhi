@@ -12,6 +12,7 @@
     'depends': ['base', 'mail'],
     'data': [
         'data/recruitment.xml',
+        'data/time_management.xml',
         'menu/menu.xml',
         'views/global_config/year.xml',
         'views/global_config/period.xml',
@@ -30,6 +31,7 @@
         'views/time_management/attendance.xml',
         'views/time_management/monthly_attendance.xml',
         'views/time_management/time_sheet.xml',
+        'views/time_management/time_sheet_application.xml',
         'views/time_management/shift_change.xml',
         'views/time_management/time_configuration.xml',
         'views/recruitment/resume_bank.xml',
