@@ -6,3 +6,4 @@ from . import global_config
 from . import employee
 from . import time_management
 from . import recruitment
+from . import leave_management

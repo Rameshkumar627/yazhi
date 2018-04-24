@@ -15,8 +15,8 @@ class CompOff(surya.Sarpam):
     _inherit = "mail.thread"
 
     date = fields.Date(string="Date", required=True)
-    employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee")
-    reason = fields.Text(string="Reason")
+    employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee", readonly=True)
+    reason = fields.Text(string="Reason", required=True)
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     writter = fields.Many2one(comodel_name="res.user", string="User", track_visibility='always')
 
@@ -40,3 +40,8 @@ class CompOff(surya.Sarpam):
                 "writter": self.env.user.id}
 
         self.write(data)
+
+    def default_vals_creation(self, vals):
+        employee_id = self.env["hr.employee"].search([("user_id", "=", self.env.user.id)])
+        vals["employee_id"] = employee_id.id
+        return vals
