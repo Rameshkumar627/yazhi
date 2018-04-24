@@ -90,12 +90,6 @@
               parent="menu_time_management"
               sequence="40"/>
 
-    <menuitem id="menu_time_week_off"
-              name="Week Off"
-              action="action_time_week_off"
-              parent="menu_time_management"
-              sequence="50"/>
-
     <menuitem id="menu_shift_change"
               name="Shift Change"
               action="action_shift_change"

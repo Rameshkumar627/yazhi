@@ -30,7 +30,6 @@
         'views/time_management/attendance.xml',
         'views/time_management/monthly_attendance.xml',
         'views/time_management/time_sheet.xml',
-        'views/time_management/week_off.xml',
         'views/time_management/shift_change.xml',
         'views/time_management/time_configuration.xml',
         'views/recruitment/resume_bank.xml',

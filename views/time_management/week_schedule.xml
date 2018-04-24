@@ -50,6 +50,24 @@
                                 </form>
                             </field>
                         </page>
+                        <page string="Week-Off Details">
+                            <field name="off_detail" attrs="{'readonly': [('progress', '=', 'scheduled')]}">
+                                <tree>
+                                    <field name="date"/>
+                                    <field name="employee_ids" widget="many2many_tags"/>
+                                    <field name="progress" invisible="1"/>
+                                    <field name="schedule_id" invisible="1"/>
+                                </tree>
+                                <form>
+                                    <group>
+                                        <field name="date"/>
+                                        <field name="progress" invisible="1"/>
+                                        <field name="schedule_id" invisible="1"/>
+                                    </group>
+                                    <field name="employee_ids"/>
+                                </form>
+                            </field>
+                        </page>
                     </notebook>
                 </sheet>
                 <div class="oe_chatter">

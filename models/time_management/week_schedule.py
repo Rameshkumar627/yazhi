@@ -21,6 +21,9 @@ class WeekSchedule(surya.Sarpam):
     schedule_detail = fields.One2many(comodel_name="week.schedule.detail",
                                       inverse_name="schedule_id",
                                       string="Schedule Detail")
+    off_detail = fields.One2many(comodel_name="week.off.detail",
+                                 inverse_name="schedule_id",
+                                 string="Week-Off Detail")
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
 
     def check_date(self):
@@ -78,10 +81,20 @@ class WeekSchedule(surya.Sarpam):
                     new_from_time_obj = datetime.strptime(expected_from_time, "%Y-%m-%d %H:%M:%S") - timedelta(minutes=(TIME_DELAY_HRS * 60) + TIME_DELAY_MIN)
                     new_till_time_obj = datetime.strptime(expected_till_time, "%Y-%m-%d %H:%M:%S") - timedelta(minutes=(TIME_DELAY_HRS * 60) + TIME_DELAY_MIN)
 
-                    attendance_detail.append((0, 0, {"shift_id": rec.shift_id.id,
-                                                     "employee_id": employee_id.id,
-                                                     "expected_from_time": new_from_time_obj.strftime("%Y-%m-%d %H:%M:%S"),
-                                                     "expected_till_time": new_till_time_obj.strftime("%Y-%m-%d %H:%M:%S")}))
+                    record_data = {"shift_id": rec.shift_id.id,
+                                   "employee_id": employee_id.id,
+                                   "day_progress": "working_day",
+                                   "expected_from_time": new_from_time_obj.strftime("%Y-%m-%d %H:%M:%S"),
+                                   "expected_till_time": new_till_time_obj.strftime("%Y-%m-%d %H:%M:%S")}
+
+                    holiday = self.env["week.off.detail"].search([("date", "=", current_date),
+                                                                  ("employee_ids", "=", employee_id.id),
+                                                                  ("schedule_id", "=", self.id)])
+
+                    if holiday:
+                        record_data["day_progress"] = "holiday"
+
+                    attendance_detail.append((0, 0, record_data))
 
             month_id = self.env["month.attendance"].search([("period_id.from_date", "<=", current_date),
                                                             ("period_id.till_date", ">=", current_date)])
@@ -99,7 +112,7 @@ class WeekSchedule(surya.Sarpam):
         self.generate_attendance()
         self.write({'progress': 'scheduled'})
 
-    @api.constrains('schedule_detail')
+    @api.constrains('schedule_detail', 'off_detail')
     def check_employee_duplication(self):
         recs = self.schedule_detail
 
@@ -109,6 +122,12 @@ class WeekSchedule(surya.Sarpam):
                 if employee_id.id in employee_list:
                     raise exceptions.ValidationError("Error! Employee {0} assign to multiple shift".format(employee_id.name))
                 employee_list.append(employee_id.id)
+
+        recs = self.off_detail
+
+        for rec in recs:
+            if (self.from_date > rec.date) or (rec.date > self.till_date):
+                raise exceptions.ValidationError("Error! Week-Off date must be within a week")
 
 
 class WeekScheduleDetail(surya.Sarpam):
@@ -120,6 +139,11 @@ class WeekScheduleDetail(surya.Sarpam):
     progress = fields.Selection(PROGRESS_INFO, string='Progress', related='schedule_id.progress')
 
 
+class WeekOffDetail(surya.Sarpam):
+    _name = "week.off.detail"
 
-
+    date = fields.Date(string="Date", required=True)
+    employee_ids = fields.Many2many(comodel_name="hr.employee", string="Employee", required=True)
+    schedule_id = fields.Many2one(comodel_name="week.schedule", string="Schedule")
+    progress = fields.Selection(PROGRESS_INFO, string='Progress', related='schedule_id.progress')
 
