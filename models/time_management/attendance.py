@@ -8,7 +8,7 @@ import json
 
 # Attendance
 
-PROGRESS_INFO = [('draft', 'draft'), ('closed', 'Closed')]
+PROGRESS_INFO = [('draft', 'Draft'), ('verified', 'Verified')]
 AVAIL_PROGRESS = [('full_day', 'Full Day'), ('half_day', 'Half Day'), ('absent', 'Absent')]
 DAY_PROGRESS = [('holiday', 'Holiday'), ('working_day', 'Working Day')]
 
@@ -35,6 +35,12 @@ class TimeAttendance(surya.Sarpam):
     def trigger_progress(self):
         self.get_report()
         self.get_availability_progress()
+
+    @api.multi
+    def trigger_verify(self):
+        self.trigger_progress()
+        data = {"progress": "verified"}
+        self.write(data)
 
     @api.multi
     def get_report(self):

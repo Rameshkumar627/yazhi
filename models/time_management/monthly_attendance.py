@@ -21,3 +21,16 @@ class MonthAttendance(surya.Sarpam):
                                    string="Month Detail")
     progress = fields.Selection(PROGRESS_INFO, string='Progress', default="draft")
 
+    @api.multi
+    def trigger_closed(self):
+        draft = self.env["time.attendance"].search_count([("month_id", "=", self.id), ("progress", "!=", "verified")])
+
+        if draft:
+            raise exceptions.ValidationError("Error! Daily attendance report is not verified")
+
+        data = {"progress": "verified"}
+        self.write(data)
+
+    @api.multi
+    def trigger_monthly_attendance_report(self):
+        pass

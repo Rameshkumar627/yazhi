@@ -21,8 +21,8 @@
         <field name="arch" type="xml">
             <form string="Attendance">
                 <header>
-                    <button name="trigger_progress"
-                            string="Update" type="object"/>
+                    <button name="trigger_progress" string="Update" type="object"/>
+                    <button name="trigger_verify" string="Verify" type="object"/>
                     <field name="progress" widget="statusbar"/>
                 </header>
                 <sheet>
@@ -32,7 +32,7 @@
                     </group>
                     <notebook>
                         <page string="Attendance Details">
-                            <field name="attendance_detail" attrs="{'readonly': [('progress', '=', 'closed')]}">
+                            <field name="attendance_detail" attrs="{'readonly': [('progress', '=', 'verified')]}">
                                 <tree editable="bottom" create="false">
                                     <field name="shift_id"/>
                                     <field name="employee_id"/>

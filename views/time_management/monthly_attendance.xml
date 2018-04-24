@@ -20,16 +20,18 @@
         <field name="arch" type="xml">
             <form string="Monthly Attendance">
                 <header>
+                    <button name="trigger_closed" string="Closed" type="object"/>
+                    <button name="trigger_monthly_attendance_report" string="Report" type="object"/>
                     <field name="progress" widget="statusbar"/>
                 </header>
                 <sheet>
                     <group>
-                        <field name="period_id"/>
+                        <field name="period_id" attrs="{'readonly': [('progress', '=', 'closed')]}"/>
                     </group>
                     <notebook>
                         <page string="Month Details">
                             <field name="month_detail" readonly="1">
-                                <tree editable="bottom">
+                                <tree editable="bottom" create="false">
                                     <field name="date"/>
                                     <field name="progress"/>
                                     <field name="month_id" invisible="1"/>
