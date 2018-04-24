@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_salary_structure_tree" model="ir.ui.view">
+        <field name="name">salary.structure.tree</field>
+        <field name="model">salary.structure</field>
+        <field name="arch" type="xml">
+            <tree string="Salary Structure">
+                <field name="name"/>
+                <field name="code"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_salary_structure_form" model="ir.ui.view">
+        <field name="name">salary.structure.form</field>
+        <field name="model">salary.structure</field>
+        <field name="arch" type="xml">
+            <form string="Salary Structure">
+                <header>
+                    <button name="trigger_confirmed" string="Confirm" type="object"
+                            attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
+                    <field name="progress" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <separator string="Salary Structure" style="text-align:center;"/>
+                    <group col="4">
+                        <field name="name" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                        <field name="code" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                    </group>
+                    <notebook>
+                        <page string="Structure Detail">
+                            <field name="detail_ids" attrs="{'readonly': [('progress', '!=', 'draft')]}">
+                                <tree editable="bottom">
+                                    <field name="rule_id"/>
+                                    <field name="sequence"/>
+                                    <field name="is_need"/>
+                                    <field name="progress" invisible="1"/>
+                                    <field name="structure_id" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_salary_structure" model="ir.actions.act_window">
+        <field name="name">Salary Structure</field>
+        <field name="res_model">salary.structure</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
