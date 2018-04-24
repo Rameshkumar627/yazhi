@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_config_config"
+              name="Configuration"
+              parent="menu_config"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_year_year"
+              name="Year"
+              action="action_year_year"
+              parent="menu_config_config"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_period_period"
+              name="Period"
+              action="action_period_period"
+              parent="menu_config_config"
+              sequence="20"/>
+
+
+</odoo>

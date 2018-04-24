@@ -8,17 +8,20 @@ from .. import surya
 # Week Schedule
 
 PROGRESS_INFO = [('draft', 'Draft'), ('scheduled', 'Scheduled')]
+TIME_DELAY_HRS = 5
+TIME_DELAY_MIN = 30
 
 
 class WeekSchedule(surya.Sarpam):
     _name = "week.schedule"
+    _inherit = "mail.thread"
 
     from_date = fields.Date(string="From Date", required=True)
     till_date = fields.Date(string="Till Date", required=True)
     schedule_detail = fields.One2many(comodel_name="week.schedule.detail",
                                       inverse_name="schedule_id",
                                       string="Schedule Detail")
-    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress")
+    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
 
     def check_date(self):
         """ From Date < Till Date """
@@ -58,32 +61,36 @@ class WeekSchedule(surya.Sarpam):
 
             attendance_detail = []
             for rec in recs:
-                expected_from_time = "{0} {1}:{2}:00.0".format(current_date,
-                                                               rec.shift_id.from_hours,
-                                                               rec.shift_id.from_minutes)
+                for employee_id in rec.employee_ids:
+                    expected_from_time = "{0} {1}:{2}:00".format(current_date,
+                                                                   rec.shift_id.from_hours,
+                                                                   rec.shift_id.from_minutes)
 
-                if rec.shift_id.end_day == 'current_day':
-                    expected_till_time = "{0} {1}:{2}:00.0".format(current_date,
-                                                                   rec.shift_id.till_hours,
-                                                                   rec.shift_id.till_minutes)
-                elif rec.shift_id.end_day == 'next_day':
-                    expected_till_time = "{0} {1}:{2}:00.0".format(next_date,
-                                                                   rec.shift_id.till_hours,
-                                                                   rec.shift_id.till_minutes)
+                    if rec.shift_id.end_day == 'current_day':
+                        expected_till_time = "{0} {1}:{2}:00".format(current_date,
+                                                                       rec.shift_id.till_hours,
+                                                                       rec.shift_id.till_minutes)
+                    elif rec.shift_id.end_day == 'next_day':
+                        expected_till_time = "{0} {1}:{2}:00".format(next_date,
+                                                                       rec.shift_id.till_hours,
+                                                                       rec.shift_id.till_minutes)
 
-                attendance_detail.append((0, 0, {"shift_id": rec.shift_id.id,
-                                                 "employee_id": rec.employee_id.id,
-                                                 "expected_from_time": expected_from_time,
-                                                 "expected_till_time": expected_till_time}))
+                    new_from_time_obj = datetime.strptime(expected_from_time, "%Y-%m-%d %H:%M:%S") - timedelta(minutes=(TIME_DELAY_HRS * 60) + TIME_DELAY_MIN)
+                    new_till_time_obj = datetime.strptime(expected_till_time, "%Y-%m-%d %H:%M:%S") - timedelta(minutes=(TIME_DELAY_HRS * 60) + TIME_DELAY_MIN)
 
-            month_id = self.env["month.attendance"].search([("period_id.from_date", ">=", current_date),
-                                                            ("period_id.till_date", "<=", current_date)])
+                    attendance_detail.append((0, 0, {"shift_id": rec.shift_id.id,
+                                                     "employee_id": employee_id.id,
+                                                     "expected_from_time": new_from_time_obj.strftime("%Y-%m-%d %H:%M:%S"),
+                                                     "expected_till_time": new_till_time_obj.strftime("%Y-%m-%d %H:%M:%S")}))
+
+            month_id = self.env["month.attendance"].search([("period_id.from_date", "<=", current_date),
+                                                            ("period_id.till_date", ">=", current_date)])
 
             if not month_id:
                 raise exceptions.ValidationError("Error! Attendance Month is not set")
 
             self.env["time.attendance"].create({"date": current_date,
-                                                "month_id": month_id,
+                                                "month_id": month_id.id,
                                                 "attendance_detail": attendance_detail})
 
     @api.multi
@@ -92,11 +99,27 @@ class WeekSchedule(surya.Sarpam):
         self.generate_attendance()
         self.write({'progress': 'scheduled'})
 
+    @api.constrains('schedule_detail')
+    def check_employee_duplication(self):
+        recs = self.schedule_detail
+
+        employee_list = []
+        for rec in recs:
+            for employee_id in rec.employee_ids:
+                if employee_id.id in employee_list:
+                    raise exceptions.ValidationError("Error! Employee {0} assign to multiple shift".format(employee_id.name))
+                employee_list.append(employee_id.id)
+
 
 class WeekScheduleDetail(surya.Sarpam):
     _name = "week.schedule.detail"
 
-    shift_id = fields.Many2one(comodel_name="time.shift", string="Shift")
-    employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee")
+    shift_id = fields.Many2one(comodel_name="time.shift", string="Shift", required=True)
+    employee_ids = fields.Many2many(comodel_name="hr.employee", string="Employee", required=True)
     schedule_id = fields.Many2one(comodel_name="week.schedule", string="Schedule")
     progress = fields.Selection(PROGRESS_INFO, string='Progress', related='schedule_id.progress')
+
+
+
+
+

@@ -45,5 +45,3 @@ class HrEmployee(surya.Sarpam):
                                 string="Leave")
     leave_level_id = fields.Many2one(comodel_name="leave.level", string="Leave Level")
     user_id = fields.Many2one(comodel_name="res.users", string="User")
-
-

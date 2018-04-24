@@ -2,7 +2,7 @@
 
 from odoo import fields, api, exceptions
 from .. import surya
-from datetime import datetime
+from datetime import datetime, timedelta
 
 PROGRESS_INFO = [("draft", "Draft"), ("open", "Open"), ("closed", "Closed")]
 
@@ -18,27 +18,38 @@ class Period(surya.Sarpam):
 
     @api.multi
     def trigger_period_open(self):
-        self.check_progress()
+        self.check_progress([("progress", "=", "open")])
         self.write({"progress": "open"})
 
     @api.multi
     def trigger_period_closed(self):
+        self.check_progress([("progress", "=", "open"), ("id", "!=", self.id)])
         self.write({"progress": "closed"})
 
-    def check_progress(self):
-        if self.env["period.period"].search([("progress", "=", "open")]):
+    def check_progress(self, data):
+        if self.env["period.period"].search(data):
             raise exceptions.ValidationError("Error! Please close the existing period before open new period")
 
     def default_vals_creation(self, vals):
         from_date = datetime.strptime(vals["from_date"], "%Y-%m-%d")
         till_date = datetime.strptime(vals["till_date"], "%Y-%m-%d")
 
+        last_from_date = from_date - timedelta(days=1)
+        next_till_date = till_date + timedelta(days=1)
+
+        # Check period within a month
         if from_date.strftime("%m-%Y") != till_date.strftime("%m-%Y"):
             raise exceptions.ValidationError("Error! Period must be within a month")
 
-        vals["name"] = "{0} To {1}".format(from_date.strftime("%m-%Y"), till_date.strftime("%m-%Y"))
+        if last_from_date.strftime("%m-%Y") == till_date.strftime("%m-%Y"):
+            raise exceptions.ValidationError("Error! Period must be within a month")
 
-        year = self.env["year.year"].search([("name", "=", from_date.strftime("%m-%Y"))])
+        if from_date.strftime("%m-%Y") == next_till_date.strftime("%m-%Y"):
+            raise exceptions.ValidationError("Error! Period must be within a month")
+
+        vals["name"] = "{0} To {1}".format(from_date.strftime("%d-%m-%Y"), till_date.strftime("%d-%m-%Y"))
+
+        year = self.env["year.year"].search([("name", "=", from_date.strftime("%Y"))])
         if year:
             vals["year_id"] = year.id
         else:

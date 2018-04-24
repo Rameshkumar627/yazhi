@@ -13,6 +13,9 @@
     'data': [
         'data/recruitment.xml',
         'menu/menu.xml',
+        'views/global_config/year.xml',
+        'views/global_config/period.xml',
+        'menu/global_config.xml',
         'views/employee/hr_employee.xml',
         'views/employee/hr_attachment.xml',
         'views/employee/hr_category.xml',

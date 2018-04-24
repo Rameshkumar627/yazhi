@@ -2,5 +2,6 @@
 <odoo>
 
     <menuitem id="menu_employee" name="Employee" sequence="10"/>
+    <menuitem id="menu_config" name="Configuration" sequence="20"/>
 
 </odoo>
