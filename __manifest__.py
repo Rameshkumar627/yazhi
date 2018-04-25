@@ -46,6 +46,9 @@
         'views/recruitment/appointment_order.xml',
         'views/recruitment/vacancy_position.xml',
         'menu/employee.xml',
+        'views/laboratory/lab_form.xml',
+        'views/laboratory/lab_test.xml',
+        'menu/laboratory.xml',
     ],
     'demo': [
 

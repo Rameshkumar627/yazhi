@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_lab_test_tree" model="ir.ui.view">
+        <field name="name">lab.test.tree</field>
+        <field name="model">lab.test</field>
+        <field name="arch" type="xml">
+            <tree string="Lab Test">
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_lab_test_form" model="ir.ui.view">
+        <field name="name">lab.test.form</field>
+        <field name="model">lab.test</field>
+        <field name="arch" type="xml">
+            <form string="Lab Test">
+                <sheet>
+                    <separator string="Laboratory Test" style="text-align:center;"/>
+                    <group>
+                        <field name="name"/>
+                        <field name="amount"/>
+                    </group>
+                    <notebook>
+                        <page string="Test Detail">
+                            <field name="test_detail">
+                                <tree>
+                                    <field name="name"/>
+                                </tree>
+                                <form>
+                                    <sheet>
+                                        <group>
+                                            <field name="name"/>
+                                        </group>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Template">
+                            <field name="template"/>
+                        </page>
+                        <page string="Report">
+                            <field name="report"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_lab_test" model="ir.actions.act_window">
+        <field name="name">Laboratory Test</field>
+        <field name="res_model">lab.test</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_laboratory_laboratory"
+              name="Employee"
+              parent="menu_laboratory"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_lab_form"
+              name="Laboratory Form"
+              action="action_lab_form"
+              parent="menu_laboratory_laboratory"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_lab_test"
+              name="Laboratory Test"
+              action="action_lab_test"
+              parent="menu_laboratory_laboratory"
+              sequence="20"/>
+
+
+</odoo>

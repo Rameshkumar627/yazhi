@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_lab_form_tree" model="ir.ui.view">
+        <field name="name">lab.form.tree</field>
+        <field name="model">lab.form</field>
+        <field name="arch" type="xml">
+            <tree string="Laboratory Form">
+                <field name="date"/>
+                <field name="patient_id"/>
+                <field name="delivery_request"/>
+                <field name="delivery_status"/>
+                <field name="bill_status"/>
+                <field name="progress"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_lab_form_form" model="ir.ui.view">
+        <field name="name">lab.form.form</field>
+        <field name="model">lab.form</field>
+        <field name="arch" type="xml">
+            <form string="Laboratory Form">
+                <header>
+                    <button name="trigger_bill_preview" string="Bill Preview" type="object"/>
+                    <button name="trigger_confirmed" string="Confirm" type="object"/>
+                    <button name="trigger_completed" string="Completed" type="object"/>
+                    <field name="progress" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <separator string="Laboratory Form" style="text-align:center;"/>
+                    <field name="sequence"/>
+                    <group col="4">
+                        <field name="date" attrs="{'readonly':[('progress', '!=', 'draft')]}"/>
+                        <field name="patient_id" attrs="{'readonly':[('progress', '!=', 'draft')]}"/>
+                        <field name="delivery_request" attrs="{'readonly':[('progress', '!=', 'draft')]}"/>
+                        <field name="delivery_status" attrs="{'invisible':[('progress', '!=', 'completed')]}"/>
+                        <field name="bill_status"/>
+                    </group>
+                    <notebook>
+                        <page string="Test Detail">
+                            <field name="lab_form_detail">
+                                <tree>
+                                    <field name="test_id" attrs="{'readonly':[('progress', '!=', 'draft')]}"/>
+                                    <field name="status" invisible="1"/>
+                                    <field name="lab_form_id" invisible="1"/>
+                                    <field name="progress" invisible="1"/>
+                                </tree>
+                                <form>
+                                    <header>
+                                        <field name="status" widget="statusbar"/>
+                                    </header>
+                                    <sheet>
+                                        <group>
+                                            <field name="test_id"/>
+                                        </group>
+                                        <notebook>
+                                            <page string="Test Detail" >
+                                                <field name="lab_form_test_detail">
+                                                    <tree editable="bottom" create="false" delete="false">
+                                                        <field name="name"/>
+                                                        <field name="value"/>
+                                                        <field name="detail_id" invisible="1"/>
+                                                    </tree>
+                                                </field>
+                                            </page>
+                                        </notebook>
+                                    </sheet>
+                                </form>
+                            </field>
+                        </page>
+                        <page string="Report">
+                            <field name="report"/>
+                        </page>
+                        <page string="Template">
+                            <field name="template"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_lab_form" model="ir.actions.act_window">
+        <field name="name">Laboratory Form</field>
+        <field name="res_model">lab.form</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
