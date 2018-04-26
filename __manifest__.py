@@ -49,6 +49,10 @@
         'views/laboratory/lab_form.xml',
         'views/laboratory/lab_test.xml',
         'menu/laboratory.xml',
+        'views/hospital/ward.xml',
+        'views/hospital/bed.xml',
+        'views/hospital/notes.xml',
+        'menu/hospital.xml',
     ],
     'demo': [
 

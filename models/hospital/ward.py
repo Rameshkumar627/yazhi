@@ -10,4 +10,7 @@ import json
 class Ward(surya.Sarpam):
     _name = "hospital.ward"
 
-    name = fields.Char(string="Ward")
+    name = fields.Char(string="Ward", required=True)
+    bed_ids = fields.One2many(comodel_name="ward.bed",
+                              inverse_name="ward_id",
+                              string="Bed")

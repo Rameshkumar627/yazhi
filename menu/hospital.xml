@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Contacts -->
+    <menuitem id="menu_hospital_contact"
+              name="Contacts"
+              parent="menu_hospital"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hr_employee_doctor"
+              name="Doctor"
+              action="action_hr_employee_doctor"
+              parent="menu_hospital_contact"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hr_employee_nurse"
+              name="Nurse"
+              action="action_hr_employee_nurse"
+              parent="menu_hospital_contact"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_hr_employee_contract"
+              name="Contract"
+              action="action_hr_employee_contract"
+              parent="menu_hospital_contact"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hr_employee_admin_staff"
+              name="Admin Staff"
+              action="action_hr_employee_admin_staff"
+              parent="menu_hospital_contact"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_hr_employee_ambulance_driver"
+              name="Ambulance Driver"
+              action="action_hr_employee_ambulance_driver"
+              parent="menu_hospital_contact"
+              sequence="50"/>
+
+    <!-- Patient -->
+    <!-- Schedules -->
+    <menuitem id="menu_hospital_schedule"
+              name="Schedule"
+              parent="menu_hospital"
+              sequence="30"/>
+
+    <!--<menuitem id="sub_menu_hospital_appointment"-->
+              <!--name="Appointment"-->
+              <!--action="action_hospital_appointment"-->
+              <!--parent="menu_hospital_appointment"-->
+              <!--sequence="10"/>-->
+
+    <menuitem id="sub_menu_hospital_notes"
+              name="Notes"
+              action="action_hospital_notes"
+              parent="menu_hospital_schedule"
+              sequence="20"/>
+
+    <!-- Hospital -->
+    <menuitem id="menu_hospital_place"
+              name="Hospital"
+              parent="menu_hospital"
+              sequence="40"/>
+
+    <menuitem id="sub_menu_hospital_ward"
+              name="Ward"
+              action="action_hospital_ward"
+              parent="menu_hospital_place"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_ward_bed"
+              name="Bed"
+              action="action_ward_bed"
+              parent="menu_hospital_place"
+              sequence="20"/>
+
+    <!--<menuitem id="sub_menu_hospital_voucher"-->
+              <!--name="Voucher"-->
+              <!--action="action_hospital_voucher"-->
+              <!--parent="menu_hospital_place"-->
+              <!--sequence="30"/>-->
+
+</odoo>
