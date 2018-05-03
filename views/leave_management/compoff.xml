@@ -34,6 +34,7 @@
                     <separator string="Comp-Off Application" style="text-align:center;"/>
                     <group col="4">
                         <field name="date" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                        <field name="co_type" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                         <field name="employee_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
                     </group>
                     <group>

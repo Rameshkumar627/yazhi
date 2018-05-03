@@ -14,7 +14,8 @@ class Permission(surya.Sarpam):
     _name = "permission.application"
     _inherit = "mail.thread"
 
-    date = fields.Date(string="Date", required=True)
+    from_time = fields.Datetime(string="From", required=True)
+    till_time = fields.Date(string="Till", required=True)
     employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee", readonly=True)
     reason = fields.Text(string="Reason", required=True)
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")

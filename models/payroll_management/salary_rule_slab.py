@@ -13,8 +13,8 @@ class SalaryRuleSlab(surya.Sarpam):
     _name = "salary.rule.slab"
     _inherit = "mail.thread"
 
-    range_from = fields.Float(string="Range From")
-    range_till = fields.Float(string="Range Till")
+    range_from = fields.Float(string="Range From", required=True)
+    range_till = fields.Float(string="Range Till", required=True)
     slab_input = fields.Text(string="Slab Input")
     slab_output = fields.Selection(selection=RULE_TYPE, string="Slab Output")
     fixed = fields.Float(string="Fixed Amount")

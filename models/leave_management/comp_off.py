@@ -8,6 +8,7 @@ from .. import surya
 # Leave
 
 PROGRESS_INFO = [('draft', 'Draft'), ('confirmed', 'Confirmed'), ('cancelled', 'Cancelled'), ('approved', 'Approved')]
+DAY_TYPE = [('full_day', 'Full Day'), ('half_day', 'Half Day')]
 
 
 class CompOff(surya.Sarpam):
@@ -18,6 +19,7 @@ class CompOff(surya.Sarpam):
     employee_id = fields.Many2one(comodel_name="hr.employee", string="Employee", readonly=True)
     reason = fields.Text(string="Reason", required=True)
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
+    co_type = fields.Selection(selection=DAY_TYPE, string="Progress", default="full_day")
     writter = fields.Many2one(comodel_name="res.user", string="User", track_visibility='always')
 
     @api.multi

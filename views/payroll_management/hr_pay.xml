@@ -6,7 +6,7 @@
         <field name="name">hr.pay.tree</field>
         <field name="model">hr.pay</field>
         <field name="arch" type="xml">
-            <tree string="HR Pay">
+            <tree string="HR Pay" create="false" edit="false" delete="false">
                 <field name="employee_id"/>
                 <field name="basic"/>
                 <field name="progress"/>
@@ -19,20 +19,19 @@
         <field name="name">hr.pay.form</field>
         <field name="model">hr.pay</field>
         <field name="arch" type="xml">
-            <form string="HR Pay">
-                <header>
-                    <button name="trigger_confirmed" string="Confirm" type="object"
-                            attrs="{'invisible': [('progress', '!=', 'draft')]}"/>
-                    <field name="progress" widget="statusbar"/>
-                </header>
+            <form string="HR Pay" create="false" edit="false" delete="false">
                 <sheet>
                     <separator string="HR Pay" style="text-align:center;"/>
                     <group>
-                        <field name="employee_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="basic" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
-                        <field name="structure_id" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                        <field name="employee_id"/>
+                        <field name="basic"/>
+                        <field name="structure_id"/>
                     </group>
                 </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
             </form>
         </field>
     </record>

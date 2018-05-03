@@ -40,7 +40,7 @@ class ResumeBank(surya.Sarpam):
     gender = fields.Selection(GENDER_INFO, string="Gender")
 
     # Order Detail
-    department_id = fields.Many2one(comodel_name="hr.department", string="Department", required=True)
+    department_id = fields.Many2one(comodel_name="hr.department", string="Department")
     position_id = fields.Many2one(comodel_name="hr.designation", string="Position", required=True)
 
     # Education Details

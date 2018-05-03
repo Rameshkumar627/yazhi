@@ -21,6 +21,7 @@
             <form string="Monthly Attendance">
                 <header>
                     <button name="trigger_closed" string="Closed" type="object"/>
+                    <button name="trigger_open" string="Open" type="object"/>
                     <button name="trigger_monthly_attendance_report" string="Report" type="object"/>
                     <field name="progress" widget="statusbar"/>
                 </header>

@@ -10,12 +10,11 @@
                 <field name="employee_id"/>
                 <field name="month_id"/>
                 <field name="leave_level_id"/>
-                <field name="total_days"/>
-                <field name="total_present"/>
-                <field name="total_absent"/>
-                <field name="total_working_days"/>
-                <field name="total_holidays"/>
-                <field name="total_lop"/>
+                <field name="leave_type_id"/>
+                <field name="debit"/>
+                <field name="credit"/>
+                <field name="progress"/>
+                <field name="leave_order"/>
             </tree>
         </field>
     </record>
@@ -26,18 +25,18 @@
         <field name="model">hr.leave</field>
         <field name="arch" type="xml">
             <form string="Leave">
+                <header>
+                    <button name="trigger_revert" string="Revert" type="object"/>
+                </header>
                 <sheet>
                     <group>
                         <field name="employee_id"/>
                         <field name="month_id"/>
                         <field name="leave_level_id"/>
-                        <field name="leave_detail"/>
-                        <field name="total_days"/>
-                        <field name="total_present"/>
-                        <field name="total_absent"/>
-                        <field name="total_working_days"/>
-                        <field name="total_holidays"/>
-                        <field name="total_lop"/>
+                        <field name="debit"/>
+                        <field name="credit"/>
+                        <field name="progress"/>
+                        <field name="leave_order"/>
                     </group>
                 </sheet>
             </form>
