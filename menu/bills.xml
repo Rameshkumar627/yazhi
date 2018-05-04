@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_hospital_bill"
+              name="Bills"
+              parent="menu_laboratory"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_hospital_bill"
+              name="Hospital Bill"
+              action="action_hospital_invoice"
+              parent="menu_hospital_bill"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_tax_configuration"
+              name="Tax Configuration"
+              action="action_tax_configuration"
+              parent="menu_hospital_bill"
+              sequence="20"/>
+
+
+</odoo>

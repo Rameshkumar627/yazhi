@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="laboratory_lab_form_sequence" model="ir.sequence">
+        <field name="name">Lab Form</field>
+        <field name="code">lab.form</field>
+        <field name="prefix">LAB/</field>
+        <field name="padding">6</field>
+        <field name="number_next">1</field>
+        <field name="number_increment">1</field>
+    </record>
+
+</odoo>
