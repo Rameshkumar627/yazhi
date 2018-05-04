@@ -7,7 +7,7 @@
         <field name="model">lab.test</field>
         <field name="arch" type="xml">
             <tree string="Lab Test">
-                <field name="name"/>
+                <field name="product_id"/>
             </tree>
         </field>
     </record>
@@ -21,7 +21,7 @@
                 <sheet>
                     <separator string="Laboratory Test" style="text-align:center;"/>
                     <group>
-                        <field name="name"/>
+                        <field name="product_id"/>
                         <field name="amount"/>
                     </group>
                     <notebook>

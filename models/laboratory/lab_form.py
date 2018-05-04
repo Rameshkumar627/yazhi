@@ -7,7 +7,6 @@ import json
 
 PROGRESS_INFO = [("draft", "Draft"),
                  ("confirmed", "Confirmed"),
-                 ("cancelled", "Cancelled"),
                  ("completed", "Completed")]
 
 STATUS_INFO = [("draft", "Draft"), ("completed", "Completed")]
@@ -19,11 +18,12 @@ BILL_INFO = [("not_paid", "Not Paid"), ("partially_paid", "Partially Paid"), ("f
 # Lab Test
 class LabForm(surya.Sarpam):
     _name = "lab.form"
+    _inherit = "mail.thread"
 
     date = fields.Date(string="Date")
-    sequence = fields.Char(string="Sequence", readonly=True)
-    patient_id = fields.Many2one(comodel_name="res.patient", string="Patient")
-    delivery_request = fields.Selection(selection=DELIVERY_REQUEST, string="Delivery Request")
+    name = fields.Char(string="Name", readonly=True)
+    patient_id = fields.Many2one(comodel_name="hr.employee", string="Patient")
+    delivery_request = fields.Selection(selection=DELIVERY_REQUEST, string="Delivery Request", default="in_person")
     delivery_status = fields.Selection(selection=DELIVERY_INFO, string="Delivery Status", default="not_sent")
     bill_status = fields.Selection(selection=BILL_INFO, string="Bill Status", default="not_paid", readonly=True)
     lab_form_detail = fields.One2many(comodel_name="lab.form.detail",
@@ -32,29 +32,74 @@ class LabForm(surya.Sarpam):
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
     template = fields.Html(string="Template")
     report = fields.Html(string="Report")
+    writter = fields.Many2one(comodel_name="res.user", string="User", track_visibility='always')
 
     @api.multi
-    def generate_bill(self):
-        pass
+    def bill_generation(self):
+        vals = {}
+        vals['partner_id'] = self.patient_id.id
+        vals['reference'] = self.name
+        invoice_detail = []
 
-    @api.multi
-    def revert_bill(self):
-        pass
+        recs = self.lab_form_detail
+        for rec in recs:
+            tax = self.env["tax.configuration"].search([("name", "=", "Laboratory")])
+
+            invoice_detail.append((0, 0, {"product_id": rec.test_id.product_id.id,
+                                          "price": rec.test_id.amount,
+                                          "tax": tax.tax_id.id}))
+
+        vals["invoice_detail"] = invoice_detail
+
+        invoice = self.env["hospital.invoice"].create(vals)
+        invoice.total_calculation()
 
     @api.multi
     def trigger_bill_preview(self):
-        pass
+        rec = self.env["hospital.invoice"].search([("reference", "=", self.name)])
+
+        if not rec:
+            self.bill_generation()
+            rec = self.env["hospital.invoice"].search([("reference", "=", self.name)])
+
+        view = self.env.ref('yazhi.view_hospital_invoice_form')
+
+        return {
+            'name': 'Laboratory Bill',
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': view.id,
+            'res_model': 'hospital.invoice',
+            'type': 'ir.actions.act_window',
+            'res_id': rec.id,
+            'target': 'new',
+            'context': self.env.context
+        }
 
     @api.multi
     def trigger_confirmed(self):
-        self.generate_bill()
-        self.write({"progress": "confirmed"})
-
-    @api.multi
-    def trigger_cancelled(self):
-        self.revert_bill()
-        self.write({"progress": "cancelled"})
+        self.trigger_bill_preview()
+        writter = self.env["hr.employee"].search([("user_id", "=", self.env.user.id)])
+        self.write({"progress": "confirmed", "writter": writter.id})
 
     @api.multi
     def trigger_completed(self):
-        self.write({"progress": "completed"})
+        self.check_pending_test()
+        writter = self.env["hr.employee"].search([("user_id", "=", self.env.user.id)])
+        self.write({"progress": "completed", "writter": writter.id})
+
+    def check_pending_test(self):
+        recs = self.env["lab.form.detail"].search_count([("lab_form_id", "=", self.id),
+                                                         ("status", "!=", "completed")])
+
+        if recs:
+            raise exceptions.ValidationError("Error! Some Test is In-Progress")
+
+    def default_vals_creation(self, vals):
+        writter = self.env["hr.employee"].search([("user_id", "=", self.env.user.id)])
+        vals['name'] = self.env['ir.sequence'].next_by_code(self._name)
+        vals['writter'] = writter.id
+        if vals.get('date', False):
+            vals['date'] = datetime.now().strftime("%Y-%m-%d")
+        return vals
+

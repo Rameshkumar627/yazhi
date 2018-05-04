@@ -56,7 +56,7 @@ class AppointmentOrder(surya.Sarpam):
         view = self.env.ref('yazhi.view_resume_bank_form')
 
         return {
-            'name': 'Issue created',
+            'name': 'Resume',
             'view_type': 'form',
             'view_mode': 'form',
             'view_id': view.id,

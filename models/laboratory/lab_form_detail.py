@@ -7,7 +7,6 @@ import json
 
 PROGRESS_INFO = [("draft", "Draft"),
                  ("confirmed", "Confirmed"),
-                 ("cancelled", "Cancelled"),
                  ("completed", "Completed")]
 
 STATUS_INFO = [("draft", "Draft"), ("completed", "Completed")]
@@ -47,4 +46,4 @@ class LabTestFormTestDetail(surya.Sarpam):
 
     name = fields.Char(string="Name", readonly=True)
     value = fields.Char(string="Value")
-    detail_id = fields.Many2one(comodel_name="lab.form.test.detail", string="Test Detail")
+    detail_id = fields.Many2one(comodel_name="lab.form.detail", string="Test Detail")

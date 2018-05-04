@@ -8,7 +8,6 @@ from . import city
 from . import language
 from . import religion
 from . import leave_type
-from . import tax
 from . import contact
 from . import experience
 from . import qualification

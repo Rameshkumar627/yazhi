@@ -31,7 +31,7 @@
                 </header>
                 <sheet>
                     <separator string="Laboratory Form" style="text-align:center;"/>
-                    <field name="sequence"/>
+                    <field name="name"/>
                     <group col="4">
                         <field name="date" attrs="{'readonly':[('progress', '!=', 'draft')]}"/>
                         <field name="patient_id" attrs="{'readonly':[('progress', '!=', 'draft')]}"/>
@@ -43,18 +43,21 @@
                         <page string="Test Detail">
                             <field name="lab_form_detail">
                                 <tree>
+                                    <field name="progress" invisible="1"/>
                                     <field name="test_id" attrs="{'readonly':[('progress', '!=', 'draft')]}"/>
                                     <field name="status" invisible="1"/>
                                     <field name="lab_form_id" invisible="1"/>
-                                    <field name="progress" invisible="1"/>
                                 </tree>
                                 <form>
                                     <header>
+                                        <button name="trigger_completed" attrs="{'invisible': [('status', '!=', 'draft')]}"
+                                                string="Completed" type="object"/>
                                         <field name="status" widget="statusbar"/>
                                     </header>
                                     <sheet>
                                         <group>
                                             <field name="test_id"/>
+                                            <field name="progress" invisible="1"/>
                                         </group>
                                         <notebook>
                                             <page string="Test Detail" >

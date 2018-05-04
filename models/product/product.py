@@ -8,6 +8,7 @@ import json
 
 # Product Group
 PROGRESS_INFO = [("draft", "Draft"), ("confirmed", "Confirmed")]
+PRODUCT_TYPE = [("service", "Service"), ("medicine", "Medicine")]
 
 
 class Product(surya.Sarpam):
@@ -18,6 +19,7 @@ class Product(surya.Sarpam):
     group_id = fields.Many2one(comodel_name="product.group", string="Group", required=True)
     sub_group_id = fields.Many2one(comodel_name="product.sub.group", string="Sub Group", required=True)
     uom_id = fields.Many2one(comodel_name="product.uom", string="UOM", required=True)
+    product_type = fields.Selection(selection=PROGRESS_INFO, string="Product Type", required=True)
     comment = fields.Text(string="Comment")
 
     @api.multi

@@ -13,6 +13,7 @@
     'data': [
         'data/recruitment.xml',
         'data/time_management.xml',
+        'data/laboratory.xml',
         'menu/menu.xml',
         'views/global_config/year.xml',
         'views/global_config/period.xml',
@@ -52,6 +53,9 @@
         'views/laboratory/lab_form.xml',
         'views/laboratory/lab_test.xml',
         'menu/laboratory.xml',
+        'views/bills/invoice.xml',
+        'views/bills/tax_configuration.xml',
+        'menu/bills.xml',
         'views/hospital/ward.xml',
         'views/hospital/bed.xml',
         'views/hospital/notes.xml',
