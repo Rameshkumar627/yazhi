@@ -138,12 +138,21 @@
         </field>
     </record>
 
-    <!-- Action -->
+    <!-- Lab Action -->
     <record id="action_hospital_invoice" model="ir.actions.act_window">
         <field name="name">Bill/ Receipt</field>
         <field name="res_model">hospital.invoice</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
+    </record>
+
+	<!-- Purchase Action -->
+    <record id="action_hospital_invoice_purchase" model="ir.actions.act_window">
+        <field name="name">Bill/ Receipt</field>
+        <field name="res_model">hospital.invoice</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('invoice_type', '=', 'purchase_bill')]</field>
     </record>
 
 </odoo>

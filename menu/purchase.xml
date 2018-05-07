@@ -24,5 +24,10 @@
               parent="menu_purchase_purchase"
               sequence="30"/>
 
+    <menuitem id="sub_menu_hospital_invoice_purchase"
+              name="Purchase Invoice"
+              action="action_hospital_invoice_purchase"
+              parent="menu_purchase_purchase"
+              sequence="40"/>
 
 </odoo>

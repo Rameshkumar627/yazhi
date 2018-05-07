@@ -41,12 +41,18 @@ class StoreIssue(surya.Sarpam):
             raise exceptions.ValidationError("Error! No Products Found")
 
     @api.multi
+    def generate_stock_picking(self):
+        pass
+
+    @api.multi
     def trigger_issue(self):
         self.check_quantity()
 
         issued_by = self.env["hr.employee"].search([("user_id", "=", self.env.user.id)])
         writter = "Issued by {0} on {1}".format(issued_by.name,
                                                 datetime.now().strftime("%d-%m-%Y %H:%M"))
+
+        self.generate_stock_picking()
 
         self.write({"progress": "confirmed",
                     "issued_by": issued_by.id,
