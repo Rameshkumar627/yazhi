@@ -13,3 +13,6 @@ from . import bills
 from . import hospital
 from . import laboratory
 from . import account
+from . import partner
+from . import store
+from . import purchase

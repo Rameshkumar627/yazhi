@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_store_store"
+              name="Store"
+              parent="menu_store"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_store_request"
+              name="Store Request"
+              action="action_store_request"
+              parent="menu_store_store"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_store_issue"
+              name="Store Issue"
+              action="action_store_issue"
+              parent="menu_store_store"
+              sequence="20"/>
+
+
+</odoo>

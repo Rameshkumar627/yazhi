@@ -12,8 +12,8 @@ class StockMove(surya.Sarpam):
 
     name = fields.Char(string="Name", required=True)
     reference = fields.Char(string="Reference", readonly=True)
-    date = fields.Date(string="Date")
-    back_order_id = fields.Many2one(comodel_name="stock.picking", string="Back Order")
+    date = fields.Date(string="Date", required=True)
+    picking_id = fields.Many2one(comodel_name="stock.picking", string="Stock Picking")
     source_location_id = fields.Many2one(comodel_name="stock.location",
                                          string="Source Location",
                                          required=True)

@@ -16,7 +16,8 @@ class JournalItems(surya.Sarpam):
     name = fields.Char(string="Name", required=True)
     date = fields.Date(string="Date", required=True)
     reference = fields.Char(string="Reference", required=True)
-    posting_id = fields.Many2one(comodel_name="journal.posting", string="Journal Posting", required=True)
+    invoice_id = fields.Many2one(comodel_name="hospital.invoice", string="Invoice")
+    due_date = ""
     period_id = fields.Many2one(comodel_name="period.period", string="Period", required=True)
     credit = fields.Float(string="Credit")
     debit = fields.Float(string="Debit")

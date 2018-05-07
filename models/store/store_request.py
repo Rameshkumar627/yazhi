@@ -13,8 +13,8 @@ PROGRESS_INFO = [("draft", "Draft"),
                  ("cancelled", "Cancelled")]
 
 
-class PurchaseIndent(surya.Sarpam):
-    _name = "purchase.indent"
+class StoreRequest(surya.Sarpam):
+    _name = "store.request"
     _inherit = "mail.thread"
 
     name = fields.Char(string="Name", readonly=True)
@@ -23,9 +23,9 @@ class PurchaseIndent(surya.Sarpam):
     approved_by = fields.Many2one(comodel_name="hr.employee", string="Approved By", readonly=True)
     department_id = fields.Many2one(comodel_name="hr.department", string="Department", readonly=True)
     progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", default="draft")
-    indent_detail = fields.One2many(comodel_name="purchase.indent.detail",
-                                    inverse_name="indent_id",
-                                    string="Indent Detail")
+    request_detail = fields.One2many(comodel_name="store.request.detail",
+                                     inverse_name="request_id",
+                                     string="Request Detail")
     writter = fields.Text(string="Writter", track_visibility='always')
 
     def default_vals_creation(self, vals):
@@ -40,7 +40,7 @@ class PurchaseIndent(surya.Sarpam):
 
     @api.multi
     def check_quantity(self):
-        recs = self.indent_detail
+        recs = self.request_detail
 
         quantity = 0
         for rec in recs:
@@ -54,7 +54,7 @@ class PurchaseIndent(surya.Sarpam):
         self.check_quantity()
 
         requested_by = self.env["hr.employee"].search([("user_id", "=", self.env.user.id)])
-        writter = "Purchase Indent by {0} on {1}".format(requested_by.name,
+        writter = "Store Requested by {0} on {1}".format(requested_by.name,
                                                          datetime.now().strftime("%d-%m-%Y %H:%M"))
 
         self.write({"progress": "confirmed",
@@ -65,52 +65,54 @@ class PurchaseIndent(surya.Sarpam):
     @api.multi
     def trigger_cancel(self):
         cancelled_by = self.env["hr.employee"].search([("user_id", "=", self.env.user.id)])
-        writter = "Purchase Indent cancelled by {0} on {1}".format(cancelled_by.name,
+        writter = "Store Request cancelled by {0} on {1}".format(cancelled_by.name,
                                                                  datetime.now().strftime("%d-%m-%Y %H:%M"))
 
         self.write({"progress": "cancelled",
                     "writter": writter})
 
     @api.multi
-    def create_vendor_selection(self, writter):
+    def create_issue(self, writter):
 
-        selection_detail = []
-        recs = self.indent_detail
+        issue_detail = []
+        recs = self.request_detail
 
         for rec in recs:
             if rec.quantity > 0:
-                selection_detail.append((0, 0, {"product_id": rec.product_id.id,
-                                                "quantity": rec.quantity}))
+                issue_detail.append((0, 0, {"product_id": rec.product_id.id,
+                                            "requested_quantity": rec.quantity}))
 
-        data = {"date": datetime.now().strftime("%Y-%m-%d"),
-                "indent_id": self.id,
-                "selection_detail": selection_detail,
+        data = {"name": self.env['ir.sequence'].next_by_code("store.issue"),
+                "date": datetime.now().strftime("%Y-%m-%d"),
+                "requested_by": self.requested_by.id,
+                "department_id": self.requested_by.department_id.id,
+                "issue_detail": issue_detail,
                 "writter": writter}
 
-        self.env["purchase.vs"].create(data)
+        self.env["store.issue"].create(data)
 
     @api.multi
     def trigger_approve(self):
         self.check_quantity()
 
         approved_by = self.env["hr.employee"].search([("user_id", "=", self.env.user.id)])
-        writter = "Purchase indent approved by {0} on {1}".format(approved_by.name,
-                                                                  datetime.now().strftime("%d-%m-%Y %H:%M"))
+        writter = "Store Request approved by {0} on {1}".format(approved_by.name,
+                                                                datetime.now().strftime("%d-%m-%Y %H:%M"))
 
-        self.create_vendor_selection(writter)
+        self.create_issue(writter)
         self.write({"progress": "approved",
                     "approved_by": approved_by.id,
                     "writter": writter})
 
 
-class PurchaseIndentDetail(surya.Sarpam):
-    _name = "purchase.indent.detail"
+class StoreRequestDetail(surya.Sarpam):
+    _name = "store.request.detail"
 
     product_id = fields.Many2one(comodel_name="product.product", string="Product")
     uom_id = fields.Many2one(comodel_name="product.uom", string="UOM", related="product_id.uom_id")
     quantity = fields.Float(string="Quantity")
-    indent_id = fields.Many2one(comodel_name="purchase.indent", string="Purchase Indent")
-    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", related="indent_id.progress")
+    request_id = fields.Many2one(comodel_name="store.request", string="Store Request")
+    progress = fields.Selection(selection=PROGRESS_INFO, string="Progress", related="request_id.progress")
 
-    _sql_constraints = [('unique_indent_detail', 'unique (product_id, indent_id)',
+    _sql_constraints = [('unique_request_detail', 'unique (product_id, request_id)',
                          'Error! Product should not be repeated')]

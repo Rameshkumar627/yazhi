@@ -87,9 +87,10 @@ class InvoiceDetail(surya.Sarpam):
 
     product_id = fields.Many2one(comodel_name="product.product", string="Description", required=True)
     uom_id = fields.Many2one(comodel_name="product.uom", string="UOM", related="product_id.uom_id")
-    price = fields.Float(string="Amount", required=True)
+    unit_price = fields.Float(string="Amount", required=True)
+    quantity = fields.Float(string="Quantity", required=True)
     discount = fields.Float(string="Discount")
-    tax = fields.Many2one(comodel_name="res.tax", string="Tax", required=True)
+    tax_id = fields.Many2one(comodel_name="res.tax", string="Tax", required=True)
     total_amount = fields.Float(string="Total Amount", readonly=True)
 
     cgst = fields.Float(string="CGST", readonly=True)
@@ -106,10 +107,13 @@ class InvoiceDetail(surya.Sarpam):
 
     @api.multi
     def detail_calculation(self):
-        price = self.price if self.price else 0
+        price = 0
+        if (self.unit_price > 0) and (self.quantity > 0):
+            price = self.unit_price * self.quantity
+
         discount = self.discount if self.discount else 0
-        tax = int(self.tax.value) if self.tax.value else 0
-        tax_state = self.tax.state
+        tax = int(self.tax_id.value) if self.tax.value else 0
+        tax_state = self.tax_id.state
 
         discounted_amount = (price - (price * float(discount/100))) or 0
 

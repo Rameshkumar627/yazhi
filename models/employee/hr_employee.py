@@ -51,3 +51,5 @@ class HrEmployee(surya.Sarpam):
     is_contract = fields.Boolean(string="Contract")
     is_admin_staff = fields.Boolean(string="Admin Staff")
     is_ambulance_driver = fields.Boolean(string="Ambulance Driver")
+
+
