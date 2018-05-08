@@ -16,6 +16,9 @@ class Sarpam(models.Model):
     def default_vals_creation(self, vals):
         return vals
 
+    def default_rec_creation(self, rec):
+        pass
+
     def record_rights(self):
         pass
 
@@ -61,5 +64,7 @@ class Sarpam(models.Model):
         self.check_progress_rights()
         self.create_condition_check()
         vals = self.default_vals_creation(vals)
-        return super(Sarpam, self).create(vals)
+        rec = super(Sarpam, self).create(vals)
+        self.default_rec_creation(rec)
+        return rec
 

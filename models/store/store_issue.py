@@ -62,7 +62,7 @@ class StoreIssue(surya.Sarpam):
 class StoreIssueDetail(surya.Sarpam):
     _name = "store.issue.detail"
 
-    product_id = fields.Many2one(comodel_name="product.product", string="Product", readonly=True)
+    product_id = fields.Many2one(comodel_name="hospital.product", string="Product", readonly=True)
     uom_id = fields.Many2one(comodel_name="product.uom", string="UOM", related="product_id.uom_id")
     requested_quantity = fields.Float(string="Requested Quantity", readonly=True)
     issued_quantity = fields.Float(string="Issued Quantity")

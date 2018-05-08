@@ -16,3 +16,4 @@ from . import account
 from . import partner
 from . import store
 from . import purchase
+from . import product

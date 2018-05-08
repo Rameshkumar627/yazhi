@@ -7,5 +7,6 @@
     <menuitem id="menu_config" name="Configuration" sequence="40"/>
     <menuitem id="menu_store" name="Store" sequence="50"/>
     <menuitem id="menu_purchase" name="Purchase" sequence="60"/>
+    <menuitem id="menu_product" name="Product" sequence="60"/>
 
 </odoo>

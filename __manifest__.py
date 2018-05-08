@@ -15,6 +15,7 @@
         'data/time_management.xml',
         'data/laboratory.xml',
         'data/store.xml',
+        'data/product.xml',
         'menu/menu.xml',
         'views/global_config/year.xml',
         'views/global_config/period.xml',
@@ -61,6 +62,8 @@
         'views/hospital/bed.xml',
         'views/hospital/notes.xml',
         'menu/hospital.xml',
+        'views/store/location.xml',
+        'views/store/warehouse.xml',
         'views/store/store_request.xml',
         'views/store/store_issue.xml',
         'menu/store.xml',
@@ -68,6 +71,11 @@
         'views/purchase/purchase_vs.xml',
         'views/purchase/purchase_quotation.xml',
         'menu/purchase.xml',
+        'views/product/group.xml',
+        'views/product/sub_group.xml',
+        'views/product/uom.xml',
+        'views/product/product.xml',
+        'menu/product.xml',
 
     ],
     'demo': [

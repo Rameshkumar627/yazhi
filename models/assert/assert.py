@@ -10,7 +10,7 @@ import json
 class Assert(surya.Sarpam):
     _name = "hospital.assert"
 
-    product_id = fields.Many2one(comodel_name="product.product", string="Product")
+    product_id = fields.Many2one(comodel_name="hospital.product", string="Product")
 
     # Product Info
     serial_no = ""

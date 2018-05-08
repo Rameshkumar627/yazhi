@@ -15,4 +15,8 @@ class ProductGroup(surya.Sarpam):
 
     name = fields.Char(string="Name", required=True)
     code = fields.Char(string="Code", required=True)
-    progress = fields.Selection(selection=PROGRESS_INFO, sring="Progress")
+    progress = fields.Selection(selection=PROGRESS_INFO, sring="Progress", default="draft")
+
+    _sql_constraints = [('unique_code', 'unique (code)', 'Error! Group Code must be unique'),
+                        ('unique_name', 'unique (name)', 'Error! Group must be unique')]
+

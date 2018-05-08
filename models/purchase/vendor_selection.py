@@ -43,7 +43,7 @@ class VSDetail(surya.Sarpam):
     _name = 'vs.detail'
     _description = 'Vendor Selection Details'
 
-    product_id = fields.Many2one(comodel_name='product.product', string='Product', readonly=True)
+    product_id = fields.Many2one(comodel_name='hospital.product', string='Product', readonly=True)
     uom_id = fields.Many2one(comodel_name='product.uom', string='UOM', related="product_id.uom_id")
     quantity = fields.Float(string='Quantity', readonly=True)
 

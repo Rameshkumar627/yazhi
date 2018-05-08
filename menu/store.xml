@@ -18,5 +18,17 @@
               parent="menu_store_store"
               sequence="20"/>
 
+    <menuitem id="sub_menu_hospital_warehouse"
+              name="warehouse"
+              action="action_hospital_warehouse"
+              parent="menu_store_store"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hospital_location"
+              name="Location"
+              action="action_hospital_location"
+              parent="menu_store_store"
+              sequence="40"/>
+
 
 </odoo>

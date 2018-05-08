@@ -11,3 +11,4 @@ from . import leave_type
 from . import contact
 from . import experience
 from . import qualification
+from . import company

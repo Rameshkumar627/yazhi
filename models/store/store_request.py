@@ -108,7 +108,7 @@ class StoreRequest(surya.Sarpam):
 class StoreRequestDetail(surya.Sarpam):
     _name = "store.request.detail"
 
-    product_id = fields.Many2one(comodel_name="product.product", string="Product")
+    product_id = fields.Many2one(comodel_name="hospital.product", string="Product")
     uom_id = fields.Many2one(comodel_name="product.uom", string="UOM", related="product_id.uom_id")
     quantity = fields.Float(string="Quantity")
     request_id = fields.Many2one(comodel_name="store.request", string="Store Request")

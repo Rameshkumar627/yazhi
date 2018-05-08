@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <menuitem id="menu_product_product"
+              name="Product"
+              parent="menu_product"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_product_group"
+              name="Product Group"
+              action="action_product_group"
+              parent="menu_product_product"
+              sequence="10"/>
+
+    <menuitem id="sub_menu_product_sub_group"
+              name="Product Sub-Group"
+              action="action_product_sub_group"
+              parent="menu_product_product"
+              sequence="20"/>
+
+    <menuitem id="sub_menu_product_uom"
+              name="Product UOM"
+              action="action_product_uom"
+              parent="menu_product_product"
+              sequence="30"/>
+
+    <menuitem id="sub_menu_hospital_product"
+              name="Product"
+              action="action_hospital_product"
+              parent="menu_product_product"
+              sequence="40"/>
+
+</odoo>

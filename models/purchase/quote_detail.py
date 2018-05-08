@@ -16,7 +16,7 @@ class VSQuoteDetail(surya.Sarpam):
     _description = 'Vendor Selection Quote Detail'
 
     vendor_id = fields.Many2one(comodel_name='hospital.partner', string='Vendor', readonly=True)
-    product_id = fields.Many2one(comodel_name='product.product', string='Product', related='vs_quote_id.product_id')
+    product_id = fields.Many2one(comodel_name='hospital.product', string='Product', related='vs_quote_id.product_id')
     uom_id = fields.Many2one(comodel_name='product.uom', string='UOM', related='vs_quote_id.uom_id')
     requested_quantity = fields.Float(string='Requested Quantity', default=0, readonly=True)
     accepted_quantity = fields.Float(string='Accepted Quantity', default=0)

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Tree -->
+    <record id="view_hospital_location_tree" model="ir.ui.view">
+        <field name="name">hospital.location.tree</field>
+        <field name="model">hospital.location</field>
+        <field name="arch" type="xml">
+            <tree string="Stock Location">
+                <field name="name"/>
+                <field name="code"/>
+                <field name="progress"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Form -->
+    <record id="view_hospital_location_form" model="ir.ui.view">
+        <field name="name">hospital.location.form</field>
+        <field name="model">hospital.location</field>
+        <field name="arch" type="xml">
+            <form string="Stock Location">
+                <header>
+                    <field name="progress" widget="statusbar" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                </header>
+                <sheet>
+                    <separator string="Stock Location" style="text-align:center;"/>
+                    <group>
+                        <field name="name" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                        <field name="code" attrs="{'readonly': [('progress', '!=', 'draft')]}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_hospital_location" model="ir.actions.act_window">
+        <field name="name">Stock Location</field>
+        <field name="res_model">hospital.location</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>
